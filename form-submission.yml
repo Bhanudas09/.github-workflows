@@ -1,0 +1,24 @@
+name: Form Submission
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  submit_form:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run form submission script
+      run: |
+        # Add your form submission script or command here
+        # For example, you might use a tool like curl to send data to a remote server
+        curl -X POST -d "name=${{ secrets.FORM_NAME }}&email=${{ secrets.FORM_EMAIL }}&message=${{ secrets.FORM_MESSAGE }}" https://your-backend-url.com/form-handler
+      env:
+        FORM_NAME: ${{ secrets.FORM_NAME }}
+        FORM_EMAIL: ${{ secrets.FORM_EMAIL }}
+        FORM_MESSAGE: ${{ secrets.FORM_MESSAGE }}
